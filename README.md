@@ -19,3 +19,6 @@
 * [node-uuid](https://www.npmjs.com/package/node-uuid)
 * [frisby](https://www.npmjs.com/package/frisby)
 * [node-find-files](https://www.npmjs.com/package/node-find-files)
+
+Escassut Sylvain - sylvain.escassut@etu.uca.fr
+Fradin Nils - nils.fradin@etu.uca.fr
