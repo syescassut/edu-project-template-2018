@@ -1,37 +1,41 @@
 const express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var fs = require('fs');
+const dal = require('./dal');
 var uuid = require('node-uuid');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.post('/', function (req, res) {
-    var id  = uuid.v4();
-    console.log(id);
-    var file = "data/"+id+'.json';
-    var objJson = req.body;
-    objJson.id = id;
-
-    fs.writeFile(file, JSON.stringify(objJson), function (err) {
-        console.error(err);
+router.post('/', function(req, res) {
+    var episode = req.body;
+    episode.id = uuid.v4();
+    dal.insert(episode)
+        .then((episode) => {
+            res.status(201);
+            res.send(episode);
+        }).catch((err) => {
+            res.sendStatus(500); 
     });
-
-    res.send("ID : "+id);
 });
 
-router.get('/', function (req, res) {
-    var episodes = [];
-    fs.readdir("data/", function (err,  files) {
-        if (err) throw err;
-        files.forEach(function (file) {
-            fs.readFile("data/"+file, function (err, data) {
-               if(err) throw err;
-               episodes.add(JSON.parse(data));
-            });
-        });
+router.get('/:id', function(req, res) {
+    dal.findOne(req.params.id+".json")
+        .then((episode) => {
+           res.status(200);
+           res.send(episode);
+        }).catch((err) => {
+            res.sendStatus(500);
     });
-    res.send(JSON.stringify(episodes));
+});
+
+router.get('/', function(req, res) {
+    dal.findAll()
+        .then((episodes) => {
+            res.status(200);
+            res.send(episodes);
+        }).catch((err) => {
+            res.sendStatus(500);
+    });
 });
 
 module.exports = router;
