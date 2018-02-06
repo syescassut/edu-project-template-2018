@@ -27,8 +27,8 @@ function readFilePromise(path) {
 }
 
 exports.findOne = function(id) {
-        const path = `${config.data}/${id}`;
-        return readFilePromise(path);
+    const path = `${config.data}/${id}`;
+    return readFilePromise(path);
 }; 
 
 exports.findAll = function() {
@@ -50,4 +50,33 @@ exports.findAll = function() {
     });
 };
 
+exports.delete = function(id) {
+    return new Promise((resolve, reject) => {
+        const path = `${config.data}/${id}`;
+        fs.exists(path, (exists) => {
+            if(!exists) {
+                var err = new Error("File Not Found");
+                reject(err);
+                return;
+            }  
+            fs.unlink(path);
+            resolve(id);
+        });
+    });    
+};
 
+exports.update = function(id, episode) {
+    return new Promise((resolve, reject) => {
+        const path = `${config.data}/${id}`;
+        fs.exists(path, (exists) => {
+            if(!exists) {
+                var err = new Error("File Not Found");
+                reject(err);
+                return;
+            }  
+            fs.unlink(path);
+            exports.insert(episode);
+            resolve(episode);
+        });
+    });    
+};

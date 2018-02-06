@@ -21,10 +21,10 @@ router.post('/', function(req, res) {
 router.get('/:id', function(req, res) {
     dal.findOne(req.params.id+".json")
         .then((episode) => {
-           res.status(200);
-           res.send(episode);
+            res.status(200);
+            res.send(episode);
         }).catch((err) => {
-            res.sendStatus(500);
+            res.sendStatus(404);
     });
 });
 
@@ -35,6 +35,29 @@ router.get('/', function(req, res) {
             res.send(episodes);
         }).catch((err) => {
             res.sendStatus(500);
+    });
+});
+
+router.delete('/:id', function(req, res) {
+    dal.delete(req.params.id+".json")
+        .then((id) => {
+            res.sendStatus(204);    
+        }).catch((err) => {
+            res.status(404);
+            res.send(err.message);          
+    });
+});
+
+router.put('/:id', function(req, res) {
+    var episode = req.body;
+    episode.id = req.params.id;
+    dal.update(req.params.id+".json", episode)
+        .then((episode) => {
+            res.status(200);
+            res.send(episode);
+        }).catch((err) => {
+            res.status(500);
+            res.send(err.message);          
     });
 });
 

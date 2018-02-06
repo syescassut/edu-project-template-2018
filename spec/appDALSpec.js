@@ -1,11 +1,12 @@
 const dal = require('../src/server/dal');
 var fs = require('fs');
 var uuid = require('node-uuid');
-const pathData = "data"
+const pathData = "data";
+var jasmine = require('jasmine');
 
 function generateEpisodeJSON() {
     var id = uuid.v4();
-    var episode = '{"name":"testName", "code":"S01E01", "note":1}';
+    var episode = '{"name":"testName", "code":"S01E01", "score":1}';
     var episodeJSON = JSON.parse(episode);
     episodeJSON.id = id;
     return episodeJSON;
@@ -14,7 +15,7 @@ function generateEpisodeJSON() {
 describe('Insert episode tests', function () {
     var episodeJSON;
     beforeAll(function() {
-        episodeJSON = generateEpisodeJSON()
+        episodeJSON = generateEpisodeJSON();
     });
     it("Insert episode", function () {
         dal.insert(episodeJSON);
@@ -23,7 +24,7 @@ describe('Insert episode tests', function () {
             if (err) {
                 console.log(err);
             }
-            expect(episodeJSON).toEqual(episodeGet);
+            expect(episodeJSON).toEqual(JSON.parse(episodeGet));
         });
     });
     afterAll(function() {
@@ -77,4 +78,6 @@ describe('Find all episodes tests', function () {
         fs.unlink(path);
     });
 });
+
+
 
