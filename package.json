@@ -5,7 +5,8 @@
     "startDev": "NODE_ENV=dev node server.js",
     "build": "NODE_ENV=production node_modules/.bin/webpack",
     "watch": "NODE_ENV=dev node_modules/.bin/webpack --watch",
-    "testServer": "node tests/test_server.js"
+    "testServer": "node tests/test_server.js",
+    "test": "jasmine"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -19,6 +20,7 @@
     "chokidar": "^1.6.1",
     "frisby": "^2.0.11",
     "html-webpack-plugin": "^2.26.0",
+    "jasmine": "^2.9.0",
     "jasmine-node": "^1.14.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -36,9 +38,9 @@
   },
   "dependencies": {
     "body-parser": "^1.15.2",
-    "express": "^4.14.0",
     "jest": "^22.1.4",
+    "express": "^4.16.2",
     "node-find-files": "0.0.4",
-    "node-uuid": "^1.4.7"
+    "node-uuid": "^1.4.8"
   }
 }
