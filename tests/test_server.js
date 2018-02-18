@@ -20,7 +20,8 @@ setTimeout(function() {
     const test = child_process.spawn(
       'node',
       [
-        path.join(__dirname, '../node_modules/.bin/jest'),
+        //path.join(__dirname, '../node_modules/.bin/jest'),
+        path.join(__dirname, '../node_modules/jest/bin/jest.js'), //On Windows
         '--verbose',
         path.join(__dirname, 'server', 'api_spec.js')
       ],

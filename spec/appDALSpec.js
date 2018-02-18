@@ -20,6 +20,7 @@ describe('Insert episode tests', function () {
     it("Insert episode", function () {
         dal.insert(episodeJSON);
         var path = `${pathData}/${episodeJSON.id}.json`;
+        fs.chmod(path,755);
         fs.readFile(path, 'utf8', function (err, episodeGet) {
             if (err) {
                 console.log(err);

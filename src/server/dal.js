@@ -59,7 +59,7 @@ exports.delete = function(id) {
                 reject(err);
                 return;
             }  
-            fs.unlink(path);
+            fs.unlink(path, (err) => { if(err) {reject(err); return;} });
             resolve(id);
         });
     });    
@@ -74,7 +74,7 @@ exports.update = function(id, episode) {
                 reject(err);
                 return;
             }  
-            fs.unlink(path);
+            fs.unlink(path, (err) => { if(err) {reject(err); return;} });
             exports.insert(episode);
             resolve(episode);
         });
