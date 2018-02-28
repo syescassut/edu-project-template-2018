@@ -12,14 +12,12 @@ class ButtonFormComponent extends React.Component {
                 <button onClick={() => fetch("/api/episodes/", {
                     method: 'POST',
                     headers: {
-                      Accept: 'application/json',
-                      'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
                     },
-                    body: {
-                      name: this.state.name,
-                      code: this.state.code,
-                      score: this.state.score
-                    },
+                    body: JSON.stringify(this.state)
+                  }).then((response) => {
+                        if(response.status == 201) { window.location.reload(); }
                   }) 
                 }>Add Episode</button>
         );

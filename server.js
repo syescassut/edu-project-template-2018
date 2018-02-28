@@ -70,10 +70,10 @@ var server = {
     }
 };
 
-if ('dev' === process.env.NODE_ENV) {
+if ('dev' === process.env.NODE_ENV.trim()) {
     server.watch();
 }
 
-if ('production' === process.env.NODE_ENV) {
+if ('production' === process.env.NODE_ENV.trim()) {
     server.start();
 }

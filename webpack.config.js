@@ -47,7 +47,7 @@ const common = {
     ]
 }
 
-if (process.env.NODE_ENV == 'dev') {
+if (process.env.NODE_ENV.trim() === 'dev') {
     module.exports = merge(common, {
         entry: [
             'react-hot-loader/patch',
@@ -66,7 +66,7 @@ if (process.env.NODE_ENV == 'dev') {
     });
 }
 
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV.trim() === 'production') {
     module.exports = merge(common, {
         plugins: [
             new webpack.DefinePlugin({
