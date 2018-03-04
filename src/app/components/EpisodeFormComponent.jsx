@@ -5,19 +5,29 @@ class EpisodeFormComponent extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state = { name: "", code: "", score: 0 };
+        this.state = {
+            name: "",
+            code: "",
+            score: 0
+        };
     }
     
     render() {
         return (
             <form method="post">
-                <label htmlFor="name">Série :</label><br></br>
-                <input type="text" name="name" id="name" onChange={(value)=>this.setState({name: value})}/><br></br>
-                <label htmlFor="code">Episode :</label><br></br>
-                <input type="text" name="code" id="code" onChange={(value)=>this.setState({code: value})}/><br></br>
-                <label htmlFor="score">Score :</label><br></br>
-                <input type="number" name="score" id="score" onChange={(value)=>this.setState({score: value})}/><br></br>
-                <ButtonFormComponent name={this.state.name} code={this.state.code} score={this.state.score}></ButtonFormComponent>
+                <div className="form-group">
+                    <label htmlFor="name">Série :</label>
+                    <input onChange={(event) => this.setState({name: event.target.value})} className="form-control" type="text" name="name" id="name" placeholder="Nom de la série"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="code">Episode :</label>
+                    <input onChange={(event) => this.setState({code: event.target.value})} className="form-control" type="text" name="code" id="code" placeholder="Code de l'épisode (Ex : S01E01)"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="score">Score :</label>
+                    <input onChange={(event) => this.setState({score: event.target.value})} className="form-control" type="number" name="score" id="score" placeholder="Note de l'épisode"/>
+                </div>
+                <ButtonFormComponent episode={this.state}></ButtonFormComponent>
             </form>
         );
     }

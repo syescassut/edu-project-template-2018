@@ -1,14 +1,14 @@
 import React from 'react';
 
-class ButtonFormComponent extends React.Component {
+class ButtonEditFormComponent extends React.Component {
     
     constructor(props) {
         super(props);
     }
     
-    addEpisode() {
-        fetch("/api/episodes", {
-            method: "POST",
+    editEpisode() {
+        fetch(`/api/episodes/${this.props.episodeId}`, {
+            method: "PUT",
             headers: {
                 'Accept': "application/json",
                 'Content-Type': "application/json"
@@ -17,7 +17,7 @@ class ButtonFormComponent extends React.Component {
                 this.props.episode
             )
         }).then((response) => {
-            if(response.status === 201) { 
+            if(response.status === 200) { 
                 window.location.reload(); 
             }
             if(response.status >= 400) {
@@ -28,9 +28,12 @@ class ButtonFormComponent extends React.Component {
     
     render() {
         return (
-            <button onClick={() => this.addEpisode()} className="btn btn-primary">Ajouter</button>
+            <button onClick={() => this.editEpisode()} className="btn btn-primary">Editer</button>
         );
     }
 }
 
-export default ButtonFormComponent;
+export default ButtonEditFormComponent;
+
+
+

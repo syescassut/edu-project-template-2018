@@ -9,12 +9,18 @@ class EpisodeListComponent extends React.Component {
     }
     
     componentDidMount() {
-        fetch("/api/episodes/", {method: 'GET'})
-            .then((response) => {
+        fetch("/api/episodes/", { 
+            method: 'GET'
+        }).then((response) => {
+            if(response.status === 200) { 
                 return response.json();
-            }).then(episodes => {
-               this.setState({ episodes:  episodes});
-            })
+            }
+            if(response.status >= 400) {
+                throw new Error("Error !");
+            }
+        }).then(episodes => {
+            this.setState({ episodes:  episodes});
+        });
     }
     
     render() {
@@ -22,9 +28,14 @@ class EpisodeListComponent extends React.Component {
             return <EpisodeItemComponent key={episode.id} episode={episode} />
         });
         return (
-            <table>
+            <table className="table">
                 <tbody>
-                    <tr><th>Serie</th><th>Episode</th><th>Score</th></tr>
+                    <tr className="table-active">
+                        <th scope="col">Série</th>
+                        <th scope="col">Episode</th>
+                        <th scope="col">Score</th>
+                        <th scope="col"></th>
+                    </tr>
                     { elements }
                 </tbody>
             </table>
